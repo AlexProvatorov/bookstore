@@ -21,3 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('book_store.urls')),
 ]
+
+admin.site.site_header = 'BOOK STORE Администрирование'
+admin.site.index_title = 'Добро пожаловать в админ-панель магазина BOOK STORE'
