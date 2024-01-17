@@ -3,16 +3,11 @@ from django.db import models
 
 class Items(models.Model):
     id = models.AutoField(primary_key=True)
-    type = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     description = models.TextField()
     cost = models.IntegerField()
     count_in_stock = models.IntegerField()
     tags = models.ManyToManyField('Tags', blank=True, related_name='tags')
-    id_cart = models.ForeignKey(
-        'Cart',
-        on_delete=models.PROTECT,
-    )
 
 
 class Tags(models.Model):
@@ -25,13 +20,13 @@ class Tags(models.Model):
         verbose_name_plural = 'Тег'
 
 
-class Customers(models.Model):
+class Users(models.Model):
     id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField()
     date_of_birth = models.DateField()
-    items = models.ManyToManyField('Items', blank=True, related_name='items')
+    # items = models.ManyToManyField('Items', blank=True, related_name='items')
 
     class Meta:
         verbose_name = 'Пользователи'
@@ -40,9 +35,19 @@ class Customers(models.Model):
 
 class Cart(models.Model):
     id_customer = models.OneToOneField(
-        'Customers',
+        'Users',
         on_delete=models.PROTECT,
     )
+    items = models.ManyToManyField('Items', blank=True)
+    count = models.IntegerField()
+
+
+class History(models.Model):
+    id_customer = models.OneToOneField(
+        'Users',
+        on_delete=models.PROTECT,
+    )
+    items = models.ManyToManyField('Items', blank=True)
     count = models.IntegerField()
 
 
@@ -74,7 +79,3 @@ class Figurine(Items):
         verbose_name = 'Фигурки'
         verbose_name_plural = 'Фигурка'
 
-
-# поле тайп в итемс под удаление
-# id cart при создании фигурки и книги вфт
-# при создании юзера ему предлагают добавить итем, а не книгу или фигурку
