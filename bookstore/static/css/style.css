@@ -1,0 +1,134 @@
+/* Basic style */
+html{
+    font-size: 20px;
+}
+
+body {
+    font-size: 25px;
+    font-weight: 400;
+    color: black;
+    background-color: white;
+    min-width: 320px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+section {
+    padding: 50px 0;
+}
+
+a {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 20px;
+}
+/* Basic style */
+
+/* Header */
+header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+/* Header */
+
+/* Product card */
+.product-card {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
+    transition: all 0.3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 14px 30px -15px rgba(0, 0, 0, 0.75);
+}
+
+.product-thumb a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 280px;
+    width: 180px;
+    padding: 20px;
+}
+
+.product-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.product-details {
+    padding: 10px;
+}
+
+.product-details h4 a {
+    font-weight: 500;
+    display: block;
+    height: 20px;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.product-details p {
+    font-size: 15px;
+    margin-bottom: 20px;
+    height: 60px;
+    overflow: hidden;
+}
+
+.product-bottom-details {
+    overflow: hidden;
+    border-top: 1px solid #0d6efd;
+    padding-top: 20px;
+}
+
+.product-price {
+    font-size: 18px;
+    color: #cc3e49;
+    font-weight: 600;
+}
+/* Product card */
+
+/* Footer */
+.footer {
+    background-color: gray;
+}
+
+.footer h4 {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    text-transform: uppercase;
+    padding-bottom: 3px;
+}
+
+.footer a {
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.footer a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer li a {
+    display: block;
+}
+
+.footer a, .footer li {
+    color: black;
+    font-size: 16px;
+}
+
+.footer-icons a {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 20px;
+}
+/* Footer */

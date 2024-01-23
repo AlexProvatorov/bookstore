@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('book_store.urls')),
@@ -24,3 +25,4 @@ urlpatterns = [
 
 admin.site.site_header = 'BOOK STORE Администрирование'
 admin.site.index_title = 'Добро пожаловать в админ-панель магазина BOOK STORE'
+

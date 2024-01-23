@@ -10,6 +10,7 @@
 # My ignored files
 /venv/
 /.idea/
-/__pycache__/
+__pycache__/
+.pyc
 .i
 .a
