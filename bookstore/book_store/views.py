@@ -3,11 +3,20 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'bookstore/index.html')
+    context = {
+        'title': 'Book Store',
+        'content': 'Книжный магазин - BOOK STORE',
+    }
+    return render(request, 'bookstore/index.html', context)
 
 
 def about(request):
-    return render(request, 'bookstore/about.html')
+    context = {
+        'title': 'Book Store - О сайте',
+        'content': 'Информация о сайте BOOK STORE',
+    }
+    return render(request, 'bookstore/about.html', context)
+
 
 def catalog(request):
     return render(request, 'bookstore/catalog.html')

@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BOOK STORE</title>
-</head>
-<body>
-    <div><p>Страница с информацией о сайте</p></div>
-</body>
-</html>
+{% extends 'bookstore/base.html'%}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <p>«BOOK STORE» – информация о сайте.</p>
+</div>
+{% endblock %}

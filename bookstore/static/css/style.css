@@ -11,6 +11,11 @@ body {
     min-width: 320px;
 }
 
+h1 {
+    text-align: center;
+    color: #0d6efd;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -42,6 +47,7 @@ header {
 .product-card {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
     transition: all 0.3s;
+    padding-top: 20px;
 }
 
 .product-card:hover {
