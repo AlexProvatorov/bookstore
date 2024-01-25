@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'book_store.apps.BookStoreConfig',
+    'goods.apps.GoodsConfig',
 ]
 
 MIDDLEWARE = [
