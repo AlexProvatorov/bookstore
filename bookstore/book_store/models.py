@@ -6,8 +6,8 @@ class Items(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
-    cost = models.IntegerField('Цена')
-    count_in_stock = models.IntegerField('Количество в наличии')
+    cost = models.IntegerField(verbose_name='Цена')
+    count_in_stock = models.IntegerField(verbose_name='Количество в наличии')
     tags = models.ManyToManyField(
         'Tags',
         blank=True,
@@ -15,7 +15,7 @@ class Items(models.Model):
         verbose_name='Теги'
     )
     photo = models.ImageField(
-        upload_to='photos/items/Y%/m%/d%',
+        upload_to='photos/items/Y%25/m%25/d%25',
         default='photos/default/default.jpg',
         blank=True,
         verbose_name='Фото'
@@ -51,9 +51,9 @@ class Users(models.Model):
     first_name = models.CharField(max_length=255, verbose_name='Имя')
     last_name = models.CharField(max_length=255, verbose_name='Фамилия')
     photo = models.ImageField(
-        upload_to='photos/users/Y%/m%/d%',
+        upload_to='photos/users/Y%25/m%25/d%25',
         verbose_name='Фото',
-        default='media/photos/default/default.jpg',
+        default='photos/default/default.jpg',
         blank=True
     )
     email = models.EmailField(verbose_name='Электронная почта')

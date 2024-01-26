@@ -11,6 +11,8 @@
 /venv/
 /.idea/
 __pycache__/
+fixtures/
+media/
 .pyc
 .i
 .a
