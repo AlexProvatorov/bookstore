@@ -2,5 +2,7 @@
 {% load static %}
 
 {% block content %}
-<h1>Тут будет каталог</h1>
+    {% for tag in tags %}
+        <button class="btn btn-primary btn-sm" type="submit">{{ tag.name }}</button>
+    {% endfor %}
 {% endblock %}
