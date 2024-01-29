@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='items',
             name='photo',
-            field=models.ImageField(blank=True, default='photos/default/default.jpg', upload_to='photos/items/Y%/m%/d%'),
+            field=models.ImageField(blank=True, default='photos/default/default.jpg', upload_to='photos/items/Y%25/m%25/d%25'),
         ),
         migrations.AddField(
             model_name='items',
@@ -30,6 +30,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='users',
             name='photo',
-            field=models.ImageField(blank=True, default='media/photos/default/default.jpg', upload_to='photos/users/Y%/m%/d%'),
+            field=models.ImageField(blank=True, default='media/photos/default/default.jpg', upload_to='photos/users/Y%25/m%25/d%25'),
         ),
     ]
