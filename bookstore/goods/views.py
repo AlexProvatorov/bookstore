@@ -1,12 +1,12 @@
 from django.shortcuts import render
 
-from book_store.models import Tags
+from book_store.models import Tags, Items
 
 
 # Create your views here.
 def catalog(request):
 
-    tags = Tags.objects.all()
+    tags = Tags.objects.filter(tags='tags')
 
     context = {
         'title': 'Book Store - Каталог',
@@ -17,4 +17,12 @@ def catalog(request):
 
 
 def product(request):
-    return render(request, 'goods/product.html')
+
+    items = Items.objects.all()
+
+    context = {
+        'title': 'Book Store - Товары',
+        'items': items,
+    }
+
+    return render(request, 'goods/product.html', context)
