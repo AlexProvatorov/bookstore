@@ -2,20 +2,29 @@
 {% load static %}
 
 {% block content %}
-<div class="card mb-3">
-  <img src="{{ item.photo.url }}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{ item.name }}</h5>
-    <p class="card-text">{{ item.description }}</p>
-    <p class="card-text">{{ item.tags }}</p>
-    <p class="card-text"><small class="text-muted">{{ item.count_in_stock }}</small></p>
-    <div class="product-bottom-details d-flex justify-content-between">
-      <div class="product-price">{{ item.cost }} Р</div>
-      <div class="product-links">
-        <a href="#"><button type="button" class="btn btn-outline-primary btn-sm">Купить</button></a>
+<div class="container">
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ item.photo.url }}" class="img-fluid rounded-start" alt="...">
       </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ item.name }}</h5>
+        <p class="card-text">{{ item.description }}</p>
+          <p class="card-text"><small class="text-muted">Жанр: {{ tags }}</small></p>
+        <p class="card-text"><small class="text-muted">За авторством: {{ authors }}</small></p>
+        <p class="card-text"><small class="text-muted">Дата релиза: {{ item.books.date_release }}</small></p>
+        <p class="card-text"><small class="text-muted">На складе осталось: {{ item.books.count_in_stock }}</small></p>
+        <div class="product-bottom-details d-flex justify-content-between">
+          <div class="product-price">{{ item.cost }} Р</div>
+          <div class="product-links">
+            <a href="#"><button type="button" class="btn btn-outline-primary btn-sm">Купить</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </div>
-
 {% endblock %}

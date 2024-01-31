@@ -11,7 +11,7 @@ class Items(models.Model):
     tags = models.ManyToManyField(
         'Tags',
         blank=True,
-        related_name='tags',
+        related_name='item',
         verbose_name='Теги'
     )
     photo = models.ImageField(
@@ -31,6 +31,9 @@ class Items(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('product', kwargs={'product_id': self.pk})
 
 
 class Tags(models.Model):
@@ -78,6 +81,7 @@ class Cart(models.Model):
     )
     items = models.ManyToManyField(
         'Items',
+        related_name="cart",
         blank=True,
         verbose_name='Покупки'
     )
@@ -92,6 +96,7 @@ class History(models.Model):
     )
     items = models.ManyToManyField(
         'Items',
+        related_name='histories',
         blank=True,
         verbose_name='Покупки'
     )
@@ -101,7 +106,7 @@ class History(models.Model):
 class Books(Items):
     authors = models.ManyToManyField(
         'Authors',
-        related_name='authors',
+        related_name='books',
         verbose_name='Авторы',
     )
     date_release = models.DateField(verbose_name='Дата выхода')
@@ -118,6 +123,10 @@ class Authors(models.Model):
     id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=255, verbose_name='Имя')
     last_name = models.CharField(max_length=255, verbose_name='Фамилия')
+
+    @property
+    def full_name(self):
+        return self.__str__()
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

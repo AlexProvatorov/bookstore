@@ -11,7 +11,7 @@
                             <img src="{{ item.photo.url }}" class="card-img-top" alt="...">
                         </div>
                         <div class="product-details h-100 d-flex flex-column">
-                            <h4><a href="#">{{ item.name|truncatewords:5 }}</a></h4>
+                            <h4><a href="{{ item.get_absolute_url }}">{{ item.name|truncatewords:5 }}</a></h4>
                             <p>{{ item.description|truncatewords:15 }}</p>
                             <div class="product-bottom-details d-flex justify-content-between mt-auto">
                                 <div class="product-price">{{ item.cost }} Р</div>
