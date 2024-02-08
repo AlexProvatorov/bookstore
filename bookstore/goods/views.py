@@ -1,25 +1,23 @@
 from django.shortcuts import render, get_list_or_404
+from goods.models import Tag, Item, Author
 
-from book_store.models import Tags, Items, Authors
 
-
-# Create your views here.
-def catalog(request, catalog_slug):
+def item(request, catalog_slug):
 
     order_by = request.GET.get('order_by', None)
     filter_by_tags = request.GET.get('filter_by_tags', None)
-    items = Items.objects.all()
+    items = Item.objects.all()
 
     if catalog_slug == "all":
-        items = Items.objects.all()
+        items = Item.objects.all()
     else:
-        items = get_list_or_404(Items.objects.filter(catalog__slug=catalog_slug))
+        items = get_list_or_404(Item.objects.filter(catalog__slug=catalog_slug))
     if order_by:
         items = items.order_by(order_by)
     if filter_by_tags:
         items = items.filter(tags__name=filter_by_tags)
 
-    tags = Tags.objects.all()
+    tags = Tag.objects.all()
 
     context = {
         'title': 'Book Store - Каталог',
@@ -31,11 +29,11 @@ def catalog(request, catalog_slug):
     return render(request, 'goods/catalog.html', context)
 
 
-def product(request, product_id):
+def item_in_detail(request, product_id):
 
-    item = Items.objects.get(pk=product_id)
-    authors = Authors.objects.filter(books__exact=item)
-    tags = Tags.objects.filter(item__exact=item)
+    item = Item.objects.get(pk=product_id)
+    authors = Author.objects.filter(books__exact=item)
+    tags = Tag.objects.filter(item__exact=item)
 
     context = {
         'title': 'Book Store - Товары',
