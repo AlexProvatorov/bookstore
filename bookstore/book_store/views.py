@@ -1,13 +1,13 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
-
+from bookstore.settings import PER_PAGE
 from goods.models import Item
 
 
 def index(request):
 
     items = Item.objects.all()
-    paginator = Paginator(items, 6)
+    paginator = Paginator(items, PER_PAGE)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
