@@ -1,13 +1,6 @@
 # BOOK STORE
 
-****
-
-## Installation
-1. Clone the repository: <font color="yellow">git clone git@github.com:AlexProvatorov/bookstore.git</font>
-2. Install dependencies: <font color="yellow">pip install -r requirements.txt</font>
-3. Create the database: <font color="yellow">python manage.py migrate</font>
-4. Create a superuser: <font color="yellow">python manage.py createsuperuser</font>
-5. Run the development <font color="yellow">server: python manage.py runserver</font>
+**Bookstore is a simple Django implementation of the basic functionality of an online store.**
 
 ## Key Features
 
@@ -15,6 +8,13 @@
 - Searching and browsing goods by various tags.
 - Adding goods to the shopping cart and placing orders.
 - Administrative interface for managing books, orders, and users.
+
+## Installation
+1. Clone the repository: <font color="yellow">git clone git@github.com:AlexProvatorov/bookstore.git</font>
+2. Install dependencies: <font color="yellow">pip install -r requirements.txt</font>
+3. Create the database: <font color="yellow">python manage.py migrate</font>
+4. Create a superuser: <font color="yellow">python manage.py createsuperuser</font>
+5. Run the development <font color="yellow">server: python manage.py runserver</font>
 
 ## Technologies
 
