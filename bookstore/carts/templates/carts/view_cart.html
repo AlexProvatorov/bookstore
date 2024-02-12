@@ -1,0 +1,10 @@
+{% extends 'book_store/base.html'%}
+{% load static %}
+
+{% block content %}
+<container>
+    {% for item in cart_list %}
+        <p>{{ item.cart.name }} {{ item.cart.cost }} {{ item.cart.count_in_stock }} {{ item.count }}</p>
+    {% endfor %}
+</container>
+{% endblock %}

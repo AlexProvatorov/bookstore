@@ -50,7 +50,7 @@
                             <div class="product-bottom-details d-flex justify-content-between mt-auto">
                                 <div class="product-price">{{ item.cost }} Р</div>
                                 <div class="product-links">
-                                    <a href="#"><button type="button" class="btn btn-outline-primary btn-sm">Купить</button></a>
+                                    <a href={% url "cart:add_cart" item_id %}"><button type="button" class="btn btn-outline-primary btn-sm">Купить</button></a>
                                 </div>
                             </div>
                         </div>

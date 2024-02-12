@@ -28,6 +28,3 @@ def about(request):
     }
     return render(request, 'book_store/about.html', context)
 
-
-def cart(request):
-    return render(request, 'book_store/cart.html')
