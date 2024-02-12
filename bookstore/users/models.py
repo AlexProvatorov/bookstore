@@ -10,10 +10,13 @@ class User(AbstractUser):
         default='photos/default/default.jpg',
         blank=True
     )
-    date_of_birth = models.DateField(verbose_name='Дата рождения')
+    date_of_birth = models.DateField(
+        verbose_name='Дата рождения',
+        auto_now_add=True
+    )
 
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+#    def __str__(self):
+#       return f"{self.first_name} {self.last_name}"
 
     def get_absolute_url(self):
         return reverse('user', kwargs={'user_id': self.pk})
