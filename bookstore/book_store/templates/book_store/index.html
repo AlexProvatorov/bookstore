@@ -25,6 +25,7 @@
     {% endfor %}
     	    </div>
         </div>
+        {% if items.count > per_page %}
         <div>
             <nav class="list-pages">
                 <ul>
@@ -38,4 +39,5 @@
                 </ul>
             </nav>
         </div>
+        {% endif %}
 {% endblock %}

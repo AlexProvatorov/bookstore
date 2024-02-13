@@ -7,6 +7,7 @@ from goods.models import Item
 def index(request):
 
     items = Item.objects.all()
+
     paginator = Paginator(items, PER_PAGE)
 
     page_number = request.GET.get('page')
@@ -16,6 +17,7 @@ def index(request):
         'title': 'Book Store',
         'content': 'Книжный магазин - BOOK STORE',
         'items': items,
+        'per_page': int(PER_PAGE),
         'page_obj': page_obj,
     }
     return render(request, 'book_store/index.html', context=context)
