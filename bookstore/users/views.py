@@ -2,12 +2,14 @@ from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView, PasswordResetView, \
     PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
+# from django.db import transaction
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, UpdateView
 
 from users.forms import RegistrationForm, LoginForm, UserForgotPasswordForm, \
-    UserSetNewPasswordForm
+    UserSetNewPasswordForm, UserUpdateForm
+from users.models import User
 
 
 class RegisterUser(CreateView):
@@ -89,4 +91,56 @@ class UserPasswordResetConfirm(SuccessMessageMixin, PasswordResetConfirmView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Установить новый пароль'
         return context
+
+
+class UserDetail(DetailView):
+    """
+    Представление для просмотра профиля.
+    """
+    model = User
+    template_name = 'users/profile_detail.html'
+    context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = f'Страница пользователя: {self.object.username}'
+        return context
+
+
+class UserUpdate(UpdateView):
+    """
+    Представление для редактирования профиля.
+    """
+    model = User
+    template_name = 'users/profile_update.html'
+    form_class = UserUpdateForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = \
+            f'Редактирование профиля пользователя: {self.request.username}'
+        if self.request.POST:
+            context['user_form'] = UserUpdateForm(self.request.POST,
+                                                  instance=self.request.user)
+        else:
+            context['user_form'] = UserUpdateForm(instance=self.request.user)
+        return context
+
+    # def form_valid(self, form):
+    #     context = self.get_context_data()
+    #     user_form = context['user_form']
+    #     with transaction.atomic():
+    #         if all([form.is_valid(), user_form.is_valid()]):
+    #             user_form.save()
+    #             form.save()
+    #         else:
+    #             context.update({'user_form': user_form})
+    #             return self.render_to_response(context)
+    #     return super(UserUpdate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('profile_detail', kwargs={'slug': self.object.slug})
 

@@ -1,7 +1,8 @@
 from django.urls import path
 
 from . import views
-from .views import UserForgotPassword, UserPasswordResetConfirm
+from .views import UserForgotPassword, UserPasswordResetConfirm, UserUpdate, \
+    UserDetail
 
 urlpatterns = [
     path('register/', views.RegisterUser.as_view(), name='register'),
@@ -11,4 +12,6 @@ urlpatterns = [
          name='password_reset'),
     path('set-new-password/<uidb64>/<token>/',
          UserPasswordResetConfirm.as_view(), name='password_reset_confirm'),
+    path('user/edit/', UserUpdate.as_view(), name='profile_edit'),
+    path('user/<str:slug>/', UserDetail.as_view(), name='profile_detail'),
 ]

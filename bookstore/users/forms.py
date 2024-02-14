@@ -59,3 +59,31 @@ class UserSetNewPasswordForm(SetPasswordForm):
             })
 
 
+class UserUpdateForm(forms.ModelForm):
+    """
+    Форма для обновления данных пользователя.
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control',
+                'autocomplete': 'off'
+            })
+
+    def clean_email(self):
+        """
+        Проверка Email на уникальность.
+        """
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        if email and User.objects.filter(email=email).exclude(
+                username=username).exists():
+            raise forms.ValidationError('Email адрес должен быть уникальным!')
+        return email
+
+    class Meta:
+        model = User
+        fields = ('username', 'slug', 'email', 'first_name', 'last_name',
+                  'date_of_birth', 'photo',)
+

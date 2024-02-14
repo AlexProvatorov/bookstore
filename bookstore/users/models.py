@@ -1,29 +1,39 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
 
 
 class User(AbstractUser):
+    slug = models.SlugField(verbose_name='URL', max_length=255, blank=True,
+                            unique=True)
     photo = models.ImageField(
         upload_to='photos/users/Y%/m%/d%',
         verbose_name='Фото',
         default='photos/default/default.jpg',
-        blank=True
+        blank=True,
+        validators=[
+            FileExtensionValidator(allowed_extensions=('png', 'jpg', 'jpeg'))]
     )
     date_of_birth = models.DateField(
         verbose_name='Дата рождения',
-        auto_now_add=True
+        null=True,
+        blank=True,
     )
 
-#    def __str__(self):
-#       return f"{self.first_name} {self.last_name}"
+    def __str__(self):
+        return self.username
+
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"
 
     def get_absolute_url(self):
-        return reverse('user', kwargs={'user_id': self.pk})
+        return reverse('user', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = 'Пользователи'
         verbose_name_plural = 'Пользователь'
         db_table = 'users_users'
+        ordering = ('username',)
 
 
