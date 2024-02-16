@@ -103,6 +103,7 @@ class UserDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = f'Страница пользователя: {self.object.username}'
+        context['slug'] = self.object.slug
         return context
 
 
