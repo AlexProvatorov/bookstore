@@ -9,3 +9,5 @@ class CustomUserAdmin(ModelAdmin):
                     'date_of_birth',
                     )
     list_display_links = ('username', 'slug')
+    prepopulated_fields = {'slug': ('username',)}
+
