@@ -3,6 +3,8 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
 
+from custom_modules.services.utils import generate_unique_slugify
+
 
 class User(AbstractUser):
     slug = models.SlugField(verbose_name='URL', max_length=255, blank=True,
@@ -29,6 +31,11 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse('user', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = generate_unique_slugify(self, self.username)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Пользователи'

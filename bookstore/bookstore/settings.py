@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'custom_modules.services',
     'book_store.apps.BookStoreConfig',
     'goods.apps.GoodsConfig',
     'users.apps.UsersConfig',
