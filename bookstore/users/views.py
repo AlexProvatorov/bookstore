@@ -2,7 +2,6 @@ from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView, PasswordResetView, \
     PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
-# from django.db import transaction
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView
@@ -121,25 +120,13 @@ class UserUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = \
-            f'Редактирование профиля пользователя: {self.request.username}'
+            f'Редактирование профиля пользователя: {self.request.user.username}'
         if self.request.POST:
             context['user_form'] = UserUpdateForm(self.request.POST,
                                                   instance=self.request.user)
         else:
             context['user_form'] = UserUpdateForm(instance=self.request.user)
         return context
-
-    # def form_valid(self, form):
-    #     context = self.get_context_data()
-    #     user_form = context['user_form']
-    #     with transaction.atomic():
-    #         if all([form.is_valid(), user_form.is_valid()]):
-    #             user_form.save()
-    #             form.save()
-    #         else:
-    #             context.update({'user_form': user_form})
-    #             return self.render_to_response(context)
-    #     return super(UserUpdate, self).form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('profile_detail', kwargs={'slug': self.object.slug})

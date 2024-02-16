@@ -31,13 +31,13 @@ def item(request, catalog_slug):
 
 def item_in_detail(request, product_id):
 
-    item = Item.objects.get(pk=product_id)
-    authors = Author.objects.filter(books__exact=item)
-    tags = Tag.objects.filter(item__exact=item)
+    good = Item.objects.get(pk=product_id)
+    authors = Author.objects.filter(book__exact=good)
+    tags = Tag.objects.filter(item__exact=good)
 
     context = {
         'title': 'Book Store - Товары',
-        'item': item,
+        'good': good,
         'authors': ', '.join(author.full_name for author in authors),
         'tags': ', '.join(tage.name for tage in tags),
     }
