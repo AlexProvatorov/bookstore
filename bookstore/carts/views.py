@@ -1,32 +1,34 @@
 from django.shortcuts import render, redirect
 from carts.models import Cart
 from goods.models import Item
+from django.shortcuts import get_object_or_404
 
 
 def view_cart(request):
-    cart_list = Cart.objects.all()
+    cart_positions = Cart.objects.all()
     context = {
         'title': 'Корзина',
         'content': 'Корзина',
-        'cart_list': cart_list,
+        'cart_positions': cart_positions,
     }
     return render(request, 'carts/view_cart.html', context)
 
 
 def add_cart(request, item_id):
-    cart_item = Item.objects.get(id=item_id)
 
-    if request.user.is_authenticated:
-        carts = Cart.objects.filter(user=request.user, items=cart_item)
+    if not request.user.is_authenticated:
+        return redirect('login')
 
-        if carts.exists():
-            cart = carts.first()
-            if cart:
-                cart.count += 1
-                cart.save()
+    item_id = get_object_or_404(Item, pk=item_id)
 
-        else:
-            Cart.objects.create(user=request.user, cart_item=cart_item, count=1)
+    cart_position, created = Cart.objects.get_or_create(
+        id_customer=request.user,
+        id_item=item_id,
+    )
+
+    if not created:
+        cart_position.count += 1
+        cart_position.save()
 
     return redirect(request.META['HTTP_REFERER'])
 

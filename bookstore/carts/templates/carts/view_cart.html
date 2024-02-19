@@ -3,8 +3,8 @@
 
 {% block content %}
 <container>
-    {% for item in cart_list %}
-        <p>{{ item.cart.name }} {{ item.cart.cost }} {{ item.cart.count_in_stock }} {{ item.count }}</p>
+    {% for cart_position in cart_positions %}
+        <p>Наименование: {{ cart_position.id_item.name }}, цена: {{ cart_position.id_item.cost }} Р, в наличии: {{ item.cart.count_in_stock }}, количество: {{ cart_position.count }}</p>
     {% endfor %}
 </container>
 {% endblock %}

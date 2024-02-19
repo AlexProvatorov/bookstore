@@ -22,6 +22,7 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
+    #items_in_cart = models.ManyToManyField(Item, through='Cart')
 
     def __str__(self):
         return self.username
