@@ -3,10 +3,8 @@ from goods.models import Tag, Item, Author
 
 
 def item(request, catalog_slug):
-
     order_by = request.GET.get('order_by', None)
     filter_by_tags = request.GET.get('filter_by_tags', None)
-    items = Item.objects.all()
 
     if catalog_slug == "all":
         items = Item.objects.all()
@@ -29,9 +27,9 @@ def item(request, catalog_slug):
     return render(request, 'goods/catalog.html', context)
 
 
-def item_in_detail(request, product_id):
+def item_in_detail(request, product_slug):
 
-    good = Item.objects.get(pk=product_id)
+    good = Item.objects.get(slug=product_slug)
     authors = Author.objects.filter(book__exact=good)
     tags = Tag.objects.filter(item__exact=good)
 

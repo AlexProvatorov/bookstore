@@ -1,9 +1,13 @@
 from django.db import models
 from django.urls import reverse
 
+from custom_modules.services.utils import generate_unique_slugify
+
 
 class Item(models.Model):
     id = models.AutoField(primary_key=True)
+    slug = models.SlugField(verbose_name='URL', max_length=255, blank=True,
+                            unique=True)
     name = models.CharField(max_length=255, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     cost = models.IntegerField(verbose_name='Цена')
@@ -32,8 +36,13 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = generate_unique_slugify(self, self.name)
+        super().save(*args, **kwargs)
+
     def get_absolute_url(self):
-        return reverse('product', kwargs={'product_id': self.pk})
+        return reverse('product', kwargs={'product_slug': self.slug})
 
     class Meta:
         db_table = 'items_items'
@@ -41,11 +50,21 @@ class Item(models.Model):
 
 class Tag(models.Model):
     id = models.AutoField(primary_key=True)
+    slug = models.SlugField(verbose_name='URL', max_length=255, blank=True,
+                            unique=True)
     name = models.CharField(max_length=255, verbose_name='Имя тега')
     description = models.TextField(verbose_name='Описание')
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = generate_unique_slugify(self, self.name)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('tag', kwargs={'tag_slug': self.slug})
 
     class Meta:
         verbose_name = 'Теги'
