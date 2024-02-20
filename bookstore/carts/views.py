@@ -26,7 +26,7 @@ def add_cart(request, item_id):
         id_item=item_id,
     )
 
-    if not created:
+    if not created and cart_position.id_item.count_in_stock > 0:
         cart_position.count += 1
         cart_position.save()
 
