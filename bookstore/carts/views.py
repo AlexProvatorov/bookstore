@@ -33,9 +33,17 @@ def add_cart(request, item_id):
     return redirect(request.META['HTTP_REFERER'])
 
 
-def change_cart(request, item_id):
-    return render(request, 'carts/change_cart.html')
-
-
 def remove_cart(request, item_id):
-    return render(request, 'carts/remove_cart.html')
+
+    item_id = get_object_or_404(Item, pk=item_id)
+
+    cart_position, deleted = Cart.objects.get_or_create(
+        id_customer=request.user,
+        id_item=item_id,
+    )
+
+    if not deleted and cart_position.id_item.count_in_stock > 0:
+        cart_position.count -= 1
+        cart_position.save()
+
+    return redirect(request.META['HTTP_REFERER'])

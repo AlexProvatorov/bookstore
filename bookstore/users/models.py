@@ -43,4 +43,3 @@ class User(AbstractUser):
         db_table = 'users_users'
         ordering = ('username',)
 
-

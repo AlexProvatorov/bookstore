@@ -19,9 +19,9 @@
   {% for cart_position in cart_positions %}
     <tr>
       <th scope="row">{{ forloop.counter }}</th>
-      <td>{{ cart_position.id_item.name }}</td>
+      <td><a href="{% url "product" cart_position.id_item.slug %}">{{ cart_position.id_item.name }}</a></td>
       <td>{{ cart_position.id_item.count_in_stock }}</td>
-      <td><a href="#"><span class="badge bg-primary">–</span></a>  {{ cart_position.count }}  <a href="{% url "add_cart" cart_position.pk %}"><span class="badge bg-primary">+</span></a></td>
+      <td><a href="{% url "remove_cart" cart_position.pk %}"><span class="badge bg-primary">–</span></a>  {{ cart_position.count }}  <a href="{% url "add_cart" cart_position.pk %}"><span class="badge bg-primary">+</span></a></td>
       <td>{{ cart_position.id_item.cost }}</td>
       <td></td>
       <td><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
