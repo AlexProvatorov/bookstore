@@ -26,7 +26,7 @@ def add_cart(request, item_id):
         id_item=item_id,
     )
 
-    if not created and cart_position.id_item.count_in_stock > 0:
+    if not created and cart_position.count < cart_position.id_item.count_in_stock:
         cart_position.count += 1
         cart_position.save()
 
@@ -42,7 +42,7 @@ def remove_cart(request, item_id):
         id_item=item_id,
     )
 
-    if not deleted and cart_position.id_item.count_in_stock > 0:
+    if not deleted and cart_position.count > 1:
         cart_position.count -= 1
         cart_position.save()
 
