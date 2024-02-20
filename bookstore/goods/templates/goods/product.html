@@ -6,20 +6,20 @@
   <div class="card mb-3">
     <div class="row g-0">
       <div class="col-md-4">
-        <img src="{{ item.photo.url }}" class="img-fluid rounded-start" alt="...">
+        <img src="{{ good.photo.url }}" class="img-fluid rounded-start" alt="...">
       </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">{{ item.name }}</h5>
-        <p class="card-text">{{ item.description }}</p>
+        <h5 class="card-title">{{ good.name }}</h5>
+        <p class="card-text">{{ good.description }}</p>
           <p class="card-text"><small class="text-muted">Жанр: {{ tags }}</small></p>
         <p class="card-text"><small class="text-muted">За авторством: {{ authors }}</small></p>
-        <p class="card-text"><small class="text-muted">Дата релиза: {{ item.books.date_release }}</small></p>
-        <p class="card-text"><small class="text-muted">На складе осталось: {{ item.books.count_in_stock }}</small></p>
+        <p class="card-text"><small class="text-muted">Дата релиза: {{ good.book.date_release }}</small></p>
+        <p class="card-text"><small class="text-muted">На складе осталось: {{ good.count_in_stock }}</small></p>
         <div class="product-bottom-details d-flex justify-content-between">
-          <div class="product-price">{{ item.cost }} Р</div>
+          <div class="product-price">{{ good.cost }} Р</div>
           <div class="product-links">
-            <a href="{% url "add_cart" item.pk %}"><button type="button" class="btn btn-outline-primary btn-sm">Купить</button></a>
+            <a href="{% url "add_cart" good.pk %}"><button type="button" class="btn btn-outline-primary btn-sm">Купить</button></a>
           </div>
         </div>
       </div>
