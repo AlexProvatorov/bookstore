@@ -12,6 +12,7 @@ class Item(models.Model):
     description = models.TextField(verbose_name='Описание')
     cost = models.IntegerField(verbose_name='Цена')
     count_in_stock = models.IntegerField(verbose_name='Количество в наличии')
+    is_active = models.BooleanField(default=True, verbose_name='Товар активен')
     tags = models.ManyToManyField(
         'Tag',
         blank=True,
