@@ -5,7 +5,11 @@ from django.shortcuts import get_object_or_404
 
 
 def view_cart(request):
-    cart_positions = Cart.objects.filter(id_customer=request.user.id)
+    """
+    Представление для отображения товаров в корзине.
+    """
+    cart_positions = Cart.objects.filter(
+        id_customer=request.user.id).order_by("id_item_id")
     context = {
         'title': 'Корзина',
         'content': 'Корзина',
