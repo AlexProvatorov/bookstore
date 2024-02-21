@@ -3,6 +3,7 @@
 
 {% block content %}
 <div class="container">
+{% if cart_positions %}
 <table class="table table-hover">
   <thead>
     <tr>
@@ -32,5 +33,10 @@
   {% endfor %}
   </tbody>
 </table>
+  <h6>Итого к оплате: </h6>
+  <button type="button" class="btn btn-primary btn-sm">Оплатить</button>
+{% else %}
+  <p>В корзине ничего нет. Воспользуйтесь поиском или перейдите в <a href="{% url "catalog" "all" %}">каталог</a>, чтобы найти интересные товары.</p>
+{% endif %}
 </div>
 {% endblock %}
