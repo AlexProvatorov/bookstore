@@ -33,7 +33,7 @@
   {% endfor %}
   </tbody>
 </table>
-  <h6>Итого к оплате: {{ cart_positions.total }}</h6>
+  <h6>Итого к оплате: {{ total_sum }}</h6>
   <button type="button" class="btn btn-primary btn-sm">Оплатить</button>
 {% else %}
   <p>В корзине ничего нет. Воспользуйтесь поиском или перейдите в <a href="{% url "catalog" "all" %}">каталог</a>, чтобы найти интересные товары.</p>

@@ -13,10 +13,13 @@ def view_cart(request):
         id_customer=request.user.id).order_by("id_item_id").annotate(
         total=F("id_item__cost") * F("count"))
 
+    total_sum = sum(cart_position.total for cart_position in cart_positions)
+
     context = {
         'title': 'Корзина',
         'content': 'Корзина',
         'cart_positions': cart_positions,
+        'total_sum': total_sum,
     }
     return render(request, 'carts/view_cart.html', context)
 
