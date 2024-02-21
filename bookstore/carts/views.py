@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.shortcuts import render, redirect
 from carts.models import Cart
 from goods.models import Item
@@ -9,7 +10,9 @@ def view_cart(request):
     Представление для отображения товаров в корзине.
     """
     cart_positions = Cart.objects.filter(
-        id_customer=request.user.id).order_by("id_item_id")
+        id_customer=request.user.id).order_by("id_item_id").annotate(
+        total=F("id_item__cost") * F("count"))
+
     context = {
         'title': 'Корзина',
         'content': 'Корзина',
