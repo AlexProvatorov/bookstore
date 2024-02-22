@@ -4,6 +4,12 @@ from goods.models import Item
 
 
 class Cart(models.Model):
+    CHOICES = (
+        ('COMPLETED', 'Завершен'),
+        ('PENDING', 'В процессе'),
+        ('CANCELLED', 'Отменен'),
+    )
+
     id_customer = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -17,31 +23,13 @@ class Cart(models.Model):
         verbose_name='Товар',
     )
     count = models.PositiveIntegerField(default=1)
-    pay_confirmed = models.BooleanField(default=False, verbose_name='Оплата подтверждена')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    status = models.CharField(max_length=255, choices=CHOICES)
+
     def __str__(self):
-        return f"Корзина {self.id_customer} | Товар {self.id_item.name} | Количество {self.count}"
+        return (f"Корзина {self.id_customer} | Товар {self.id_item.name}"
+                f" | Количество {self.count} | Статус {self.created_at}")
 
     class Meta:
         db_table = 'carts_carts'
-
-
-class History(models.Model):
-    id_customer = models.OneToOneField(
-        User,
-        on_delete=models.PROTECT,
-        verbose_name='Пользователь'
-    )
-    items = models.ManyToManyField(
-        Item,
-        related_name='history',
-        blank=True,
-        verbose_name='История покупок'
-    )
-    count = models.IntegerField(verbose_name='Количество')
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'carts_histories'
-

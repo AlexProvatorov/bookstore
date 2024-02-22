@@ -48,6 +48,16 @@ class Item(models.Model):
     class Meta:
         db_table = 'items_items'
 
+    class ItemManager(models.Manager):
+        """
+        Кастомный менеджер для модели товаров.
+        """
+
+        def all(self):
+            return self.get_queryset().filter(is_active=True)
+
+    objects = ItemManager()
+
 
 class Tag(models.Model):
     id = models.AutoField(primary_key=True)
