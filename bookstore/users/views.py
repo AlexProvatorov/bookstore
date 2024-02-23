@@ -2,10 +2,12 @@ from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView, PasswordResetView, \
     PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect
+from django.db.models import F
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView
 
+from carts.models import Cart
 from users.forms import RegistrationForm, LoginForm, UserForgotPasswordForm, \
     UserSetNewPasswordForm, UserUpdateForm
 from users.models import User
@@ -132,3 +134,19 @@ class UserUpdate(UpdateView):
     def get_success_url(self):
         return reverse_lazy('profile_detail', kwargs={'slug': self.object.slug})
 
+
+def history_user(request):
+    """
+    Представление для отображения покупок пользователя.
+    """
+    personal_positions = Cart.cart_objects.filter(
+        id_customer=request.user.id, status="COMPLETED").order_by(
+        "created_at").annotate(total=F("id_item__cost") * F("count"))
+
+    context = {
+        'title': 'История покупок',
+        'content': 'История покупок',
+        'personal_positions': personal_positions,
+    }
+
+    return render(request, 'users/history_user.html', context)

@@ -9,7 +9,7 @@ def view_cart(request):
     """
     Представление для отображения товаров в корзине.
     """
-    cart_positions = Cart.objects.filter(
+    cart_positions = Cart.cart_objects.all().filter(
         id_customer=request.user.id).order_by("id_item_id").annotate(
         total=F("id_item__cost") * F("count"))
 
@@ -31,7 +31,7 @@ def add_cart(request, item_id):
 
     item_id = get_object_or_404(Item, pk=item_id)
 
-    cart_position, created = Cart.objects.get_or_create(
+    cart_position, created = Cart.cart_objects.get_or_create(
         id_customer=request.user,
         id_item=item_id,
     )
@@ -48,7 +48,7 @@ def remove_cart(request, item_id):
 
     item_id = get_object_or_404(Item, pk=item_id)
 
-    cart_position, created = Cart.objects.get_or_create(
+    cart_position, created = Cart.cart_objects.get_or_create(
         id_customer=request.user,
         id_item=item_id,
     )
@@ -64,7 +64,7 @@ def remove_cart_position(request, item_id):
 
     item_id = get_object_or_404(Item, pk=item_id)
 
-    cart_position, created = Cart.objects.get_or_create(
+    cart_position, created = Cart.cart_objects.get_or_create(
         id_customer=request.user,
         id_item=item_id,
     )
@@ -73,3 +73,10 @@ def remove_cart_position(request, item_id):
 
     return redirect(request.META['HTTP_REFERER'])
 
+
+def create_order(request):
+    order_positions = Cart.cart_objects.filter(
+        id_customer=request.user.id).order_by("id_item_id").annotate(
+        total=F("id_item__cost") * F("count")).update(status='PENDING')
+
+    return redirect(request.META['HTTP_REFERER'])

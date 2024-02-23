@@ -1,6 +1,8 @@
 from django.db import models
 from users.models import User
 from goods.models import Item
+from django.db.models import Q
+
 
 
 class Cart(models.Model):
@@ -29,7 +31,17 @@ class Cart(models.Model):
 
     def __str__(self):
         return (f"Корзина {self.id_customer} | Товар {self.id_item.name}"
-                f" | Количество {self.count} | Статус {self.created_at}")
+                f" | Количество {self.count} | Статус {self.status}")
 
     class Meta:
         db_table = 'carts_carts'
+
+    class CartManager(models.Manager):
+        """
+        Кастомный менеджер для модели корзины.
+        """
+
+        def all(self):
+            return self.get_queryset().filter(Q(status='CANCELLED') | Q(status='PENDING') | Q(status=''))
+
+    cart_objects = CartManager()

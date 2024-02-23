@@ -52,7 +52,6 @@ class Item(models.Model):
         """
         Кастомный менеджер для модели товаров.
         """
-
         def all(self):
             return self.get_queryset().filter(is_active=True)
 

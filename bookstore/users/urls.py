@@ -14,4 +14,5 @@ urlpatterns = [
          UserPasswordResetConfirm.as_view(), name='password_reset_confirm'),
     path('user/edit/', UserUpdate.as_view(), name='profile_edit'),
     path('user/<str:slug>/', UserDetail.as_view(), name='profile_detail'),
+    path('history-user/', views.history_user, name='history_user'),
 ]
