@@ -23,17 +23,28 @@ class Cart(models.Model):
         blank=True,
         verbose_name='Товар',
     )
-    count = models.PositiveIntegerField(default=1)
-    created_at = models.DateTimeField(auto_now_add=True)
+    count = models.PositiveIntegerField(default=1, verbose_name='Количество')
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Время создания'
+    )
 
-    status = models.CharField(max_length=255, choices=CHOICES)
+    status = models.CharField(
+        max_length=255,
+        choices=CHOICES,
+        verbose_name='Статус'
+    )
 
     def __str__(self):
         return (f"Корзина {self.id_customer} | Товар {self.id_item.name}"
-                f" | Количество {self.count} | Статус {self.status}")
+                f" | Количество {self.count} | Цена {self.id_item.cost}"
+                f" | Сумма {self.id_item.cost * self.count}"
+                f" | Статус {self.status}")
 
     class Meta:
         db_table = 'carts_carts'
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
 
     class CartManager(models.Manager):
         """
