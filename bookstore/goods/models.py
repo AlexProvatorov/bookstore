@@ -55,7 +55,7 @@ class Item(models.Model):
         def all(self):
             return self.get_queryset().filter(is_active=True)
 
-    objects = ItemManager()
+    item_objects = ItemManager()
 
 
 class Tag(models.Model):

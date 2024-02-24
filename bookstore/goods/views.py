@@ -7,9 +7,11 @@ def item(request, catalog_slug):
     filter_by_tags = request.GET.get('filter_by_tags', None)
 
     if catalog_slug == "all":
-        items = Item.objects.all()
+        items = Item.item_objects.all()
     else:
-        items = get_list_or_404(Item.objects.filter(catalog__slug=catalog_slug))
+        items = get_list_or_404(
+            Item.item_objects.filter(catalog__slug=catalog_slug)
+        )
     if order_by:
         items = items.order_by(order_by)
     if filter_by_tags:
@@ -29,7 +31,7 @@ def item(request, catalog_slug):
 
 def item_in_detail(request, product_slug):
 
-    good = Item.objects.get(slug=product_slug)
+    good = Item.item_objects.get(slug=product_slug)
     authors = Author.objects.filter(book__exact=good)
     tags = Tag.objects.filter(item__exact=good)
 

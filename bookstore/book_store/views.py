@@ -6,7 +6,7 @@ from goods.models import Item
 
 def index(request):
 
-    items = Item.objects.all()
+    items = Item.item_objects.all()
 
     paginator = Paginator(items, PER_PAGE)
 
