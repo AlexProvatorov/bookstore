@@ -4,7 +4,6 @@ from goods.models import Item
 from django.db.models import Q
 
 
-
 class Cart(models.Model):
     CHOICES = (
         ('COMPLETED', 'Завершен'),
