@@ -52,6 +52,8 @@ class Cart(models.Model):
         """
 
         def all(self):
-            return self.get_queryset().filter(Q(status='CANCELLED') | Q(status='PENDING') | Q(status=''))
+            return self.get_queryset().filter(
+                Q(status='CANCELLED') | Q(status='PENDING') | Q(status='')
+            )
 
     cart_objects = CartManager()

@@ -21,7 +21,10 @@ class CartAdmin(admin.ModelAdmin):
 
     @admin.action(description='Подтвердить оплату')
     def set_completed_status(self, request, order_positions):
-        order_positions.update(status='COMPLETED')
+        for order_position in order_positions:
+            order_position.id_item.count_in_stock -= order_position.count
+            order_position.status = 'COMPLETED'
+            order_position.save()
 
     @admin.action(description='Отклонить оплату')
     def set_cancelled_status(self, request, order_positions):
