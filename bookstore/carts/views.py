@@ -54,9 +54,11 @@ def remove_cart(request, item_id):
         id_item=item_id,
     )
 
-    if not created and cart_position.count > 1:
+    if not created and cart_position.count > 0:
         cart_position.count -= 1
         cart_position.save()
+    if not created and cart_position.count == 0:
+        cart_position.delete()
 
     return redirect(request.META['HTTP_REFERER'])
 

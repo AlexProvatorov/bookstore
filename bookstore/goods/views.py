@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_list_or_404
+from django.shortcuts import render
 from goods.models import Tag, Item, Author
 
 
@@ -9,9 +9,7 @@ def item(request, catalog_slug):
     if catalog_slug == "all":
         items = Item.item_objects.all()
     else:
-        items = get_list_or_404(
-            Item.item_objects.filter(catalog__slug=catalog_slug)
-        )
+        items = Item.item_objects.filter(catalog__slug=catalog_slug)
     if order_by:
         items = items.order_by(order_by)
     if filter_by_tags:
