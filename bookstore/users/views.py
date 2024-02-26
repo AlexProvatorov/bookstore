@@ -140,8 +140,8 @@ def history_user(request):
     Представление для отображения покупок пользователя.
     """
     personal_positions = Cart.cart_objects.filter(
-        id_customer=request.user.id, status="COMPLETED").order_by(
-        "created_at").annotate(total=F("id_item__cost") * F("count"))
+        customer=request.user.id, status="COMPLETED").order_by(
+        "created_at").annotate(total=F("item__cost") * F("count"))
 
     context = {
         'title': 'История покупок',

@@ -11,12 +11,12 @@ class Cart(models.Model):
         ('CANCELLED', 'Отменен'),
     )
 
-    id_customer = models.ForeignKey(
+    customer = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name='Пользователь',
     )
-    id_item = models.ForeignKey(
+    item = models.ForeignKey(
         Item,
         on_delete=models.CASCADE,
         related_name="cart",
@@ -36,9 +36,9 @@ class Cart(models.Model):
     )
 
     def __str__(self):
-        return (f"Корзина {self.id_customer} | Товар {self.id_item.name}"
-                f" | Количество {self.count} | Цена {self.id_item.cost}"
-                f" | Сумма {self.id_item.cost * self.count}"
+        return (f"Корзина {self.customer} | Товар {self.item.name}"
+                f" | Количество {self.count} | Цена {self.item.cost}"
+                f" | Сумма {self.item.cost * self.count}"
                 f" | Статус {self.status}")
 
     class Meta:
