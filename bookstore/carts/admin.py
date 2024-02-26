@@ -24,6 +24,7 @@ class CartAdmin(admin.ModelAdmin):
         for order_position in order_positions:
             order_position.id_item.count_in_stock -= order_position.count
             order_position.status = 'COMPLETED'
+            order_position.id_item.save()
             order_position.save()
 
     @admin.action(description='Отклонить оплату')
