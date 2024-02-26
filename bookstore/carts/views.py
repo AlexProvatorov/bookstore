@@ -84,15 +84,3 @@ def create_order(request):
         total=F("item__cost") * F("count")).update(status='PENDING')
 
     return redirect(request.META['HTTP_REFERER'])
-
-
-def submit_order(request, item_id):
-    item_id = get_object_or_404(Item, pk=item_id)
-
-    order_position = Cart.cart_objects.all().get(item=item_id)
-
-    if order_position.item.count_in_stock > 0:
-        order_position.item.count_in_stock -= order_position.count
-        order_position.save()
-
-    return redirect(request.META['HTTP_REFERER'])

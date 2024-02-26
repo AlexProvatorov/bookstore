@@ -13,6 +13,7 @@
       <th scope="col">Цена</th>
       <th scope="col">Сумма</th>
       <th scope="col">Статус</th>
+      <th scope="col">Дата покупки</th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,7 @@
       <td>{{ personal_position.item.cost }}</td>
       <td>{{ personal_position.total }}</td>
       <td>{{ personal_position.get_status_display }}</td>
+      <td>{{ personal_position.created_at }}</td>
     </tr>
   {% endfor %}
   </tbody>

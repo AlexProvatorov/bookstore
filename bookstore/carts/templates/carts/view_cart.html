@@ -36,7 +36,7 @@
   </tbody>
 </table>
   <h6>Итого к оплате: {{ total_sum }}</h6>
-  <button type="button" class="btn btn-primary btn-sm"><a href="{% url "create_order" %}">Оплатить</a></button>
+    <a href="{% url "create_order" %}"><button type="button" class="btn btn-outline-primary btn-sm">Оплатить</button></a>
 {% else %}
   <p>В корзине ничего нет. Воспользуйтесь поиском или перейдите в <a href="{% url "catalog" "all" %}">каталог</a>, чтобы найти интересные товары.</p>
 {% endif %}

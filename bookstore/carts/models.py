@@ -53,7 +53,8 @@ class Cart(models.Model):
 
         def all(self):
             return self.get_queryset().filter(
-                Q(status='CANCELLED') | Q(status='PENDING') | Q(status='')
+                Q(status='CANCELLED') | Q(status='PENDING') | Q(status=''),
+                # cart_objects.item.count_in_stock > 0
             )
 
     cart_objects = CartManager()
