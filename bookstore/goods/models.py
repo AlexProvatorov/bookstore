@@ -4,7 +4,22 @@ from django.urls import reverse
 from custom_modules.services.utils import generate_unique_slugify
 
 
+class ItemManager(models.Manager):
+    """
+    Кастомный менеджер для модели товаров.
+    """
+
+    def all(self):
+        return self.get_queryset().filter(
+            is_active=True,
+            count_in_stock__gt=0,
+        )
+
+
 class Item(models.Model):
+
+    item_objects = ItemManager()
+
     id = models.AutoField(primary_key=True)
     slug = models.SlugField(verbose_name='URL', max_length=255, blank=True,
                             unique=True)
@@ -47,15 +62,6 @@ class Item(models.Model):
 
     class Meta:
         db_table = 'items_items'
-
-    class ItemManager(models.Manager):
-        """
-        Кастомный менеджер для модели товаров.
-        """
-        def all(self):
-            return self.get_queryset().filter(is_active=True)
-
-    item_objects = ItemManager()
 
 
 class Tag(models.Model):
