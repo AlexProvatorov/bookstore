@@ -11,7 +11,7 @@ class CartAdmin(admin.ModelAdmin):
         'created_at',
         'status',
     ]
-    list_editable = ['status',]
+    list_editable = ['status']
     ordering = ['-created_at', 'item']
     list_display_links = ('customer', 'item')
     actions = ['set_completed_status', 'set_cancelled_status']

@@ -7,15 +7,20 @@ from custom_modules.services.utils import generate_unique_slugify
 
 
 class User(AbstractUser):
-    slug = models.SlugField(verbose_name='URL', max_length=255, blank=True,
-                            unique=True)
+    slug = models.SlugField(
+        verbose_name='URL',
+        max_length=255,
+        blank=True,
+        unique=True,
+    )
     photo = models.ImageField(
         upload_to='photos/users/Y%/m%/d%',
         verbose_name='Фото',
         default='photos/default/default.jpg',
         blank=True,
         validators=[
-            FileExtensionValidator(allowed_extensions=('png', 'jpg', 'jpeg'))]
+            FileExtensionValidator(allowed_extensions=('png', 'jpg', 'jpeg')),
+        ],
     )
     date_of_birth = models.DateField(
         verbose_name='Дата рождения',

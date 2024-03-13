@@ -4,6 +4,17 @@ from goods.models import Item
 from django.db.models import Q
 
 
+class CartManager(models.Manager):
+    """
+    Кастомный менеджер для модели корзины.
+    """
+
+    def all(self):
+        return self.get_queryset().filter(
+            Q(status='CANCELLED') | Q(status='PENDING') | Q(status=''),
+        )
+
+
 class Cart(models.Model):
     CHOICES = (
         ('COMPLETED', 'Завершен'),
@@ -26,34 +37,25 @@ class Cart(models.Model):
     count = models.PositiveIntegerField(default=1, verbose_name='Количество')
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name='Время создания'
+        verbose_name='Время создания',
     )
 
     status = models.CharField(
         max_length=255,
         choices=CHOICES,
-        verbose_name='Статус'
+        verbose_name='Статус',
     )
 
     def __str__(self):
         return (f"Корзина {self.customer} | Товар {self.item.name}"
                 f" | Количество {self.count} | Цена {self.item.cost}"
                 f" | Сумма {self.item.cost * self.count}"
-                f" | Статус {self.status}")
+                f" | Статус {self.status}"
+                )
 
     class Meta:
         db_table = 'carts_carts'
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
-
-    class CartManager(models.Manager):
-        """
-        Кастомный менеджер для модели корзины.
-        """
-
-        def all(self):
-            return self.get_queryset().filter(
-                Q(status='CANCELLED') | Q(status='PENDING') | Q(status=''),
-            )
 
     cart_objects = CartManager()

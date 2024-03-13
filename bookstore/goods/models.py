@@ -21,8 +21,12 @@ class Item(models.Model):
     item_objects = ItemManager()
 
     id = models.AutoField(primary_key=True)
-    slug = models.SlugField(verbose_name='URL', max_length=255, blank=True,
-                            unique=True)
+    slug = models.SlugField(
+        verbose_name='URL',
+        max_length=255,
+        blank=True,
+        unique=True,
+    )
     name = models.CharField(max_length=255, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     cost = models.IntegerField(verbose_name='Цена')
@@ -32,21 +36,21 @@ class Item(models.Model):
         'Tag',
         blank=True,
         related_name='item',
-        verbose_name='Теги'
+        verbose_name='Теги',
     )
     photo = models.ImageField(
         upload_to='photos/items/Y%/m%/d%',
         default='photos/default/default.jpg',
         blank=True,
-        verbose_name='Фото'
+        verbose_name='Фото',
     )
     time_created = models.DateTimeField(
         auto_now_add=True,
-        verbose_name='Время создания'
+        verbose_name='Время создания',
     )
     time_updated = models.DateTimeField(
         auto_now=True,
-        verbose_name='Время последнего редактирования'
+        verbose_name='Время последнего редактирования',
     )
 
     def __str__(self):
@@ -66,8 +70,12 @@ class Item(models.Model):
 
 class Tag(models.Model):
     id = models.AutoField(primary_key=True)
-    slug = models.SlugField(verbose_name='URL', max_length=255, blank=True,
-                            unique=True)
+    slug = models.SlugField(
+        verbose_name='URL',
+        max_length=255,
+        blank=True,
+        unique=True,
+    )
     name = models.CharField(max_length=255, verbose_name='Имя тега')
     description = models.TextField(verbose_name='Описание')
 

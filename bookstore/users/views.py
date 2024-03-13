@@ -1,6 +1,6 @@
 from django.contrib.auth import logout, login
-from django.contrib.auth.views import LoginView, PasswordResetView, \
-    PasswordResetConfirmView
+from django.contrib.auth.views import LoginView, PasswordResetView
+from django.contrib.auth.views import PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import F
 from django.shortcuts import redirect, render
@@ -8,8 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView
 
 from carts.models import Cart
-from users.forms import RegistrationForm, LoginForm, UserForgotPasswordForm, \
-    UserSetNewPasswordForm, UserUpdateForm
+from users.forms import *
 from users.models import User
 
 
@@ -122,11 +121,14 @@ class UserUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = \
-            f'Редактирование профиля пользователя: {self.request.user.username}'
+        context['title'] = (f'Редактирование профиля пользователя: '
+                            f'{self.request.user.username}'
+                            )
         if self.request.POST:
-            context['user_form'] = UserUpdateForm(self.request.POST,
-                                                  instance=self.request.user)
+            context['user_form'] = UserUpdateForm(
+                self.request.POST,
+                instance=self.request.user,
+            )
         else:
             context['user_form'] = UserUpdateForm(instance=self.request.user)
         return context
@@ -140,8 +142,8 @@ def history_user(request):
     Представление для отображения покупок пользователя.
     """
     personal_positions = Cart.cart_objects.filter(
-        customer=request.user.id, status="COMPLETED").order_by(
-        "created_at").annotate(total=F("item__cost") * F("count"))
+        customer=request.user.id, status="COMPLETED",
+    ).order_by("created_at").annotate(total=F("item__cost") * F("count"))
 
     context = {
         'title': 'История покупок',
